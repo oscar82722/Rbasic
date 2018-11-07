@@ -9,7 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="台北醫學大學 生物統計中心 王博賢 (oscar82722@tmu.edu.tw)" />
+<meta name="author" content="臺北醫學大學 生物統計中心 王博賢 (oscar82722@tmu.edu.tw)" />
 
 
 <title>R Function</title>
@@ -221,7 +221,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">R Function</h1>
-<h4 class="author"><em>台北醫學大學 生物統計中心 王博賢 (<a href="mailto:oscar82722@tmu.edu.tw">oscar82722@tmu.edu.tw</a>)</em></h4>
+<h4 class="author"><em>臺北醫學大學 生物統計中心 王博賢 (<a href="mailto:oscar82722@tmu.edu.tw">oscar82722@tmu.edu.tw</a>)</em></h4>
 <h4 class="date"><em>2018年11月4日</em></h4>
 
 </div>
@@ -275,26 +275,32 @@ else{
 <h3>巢狀判斷</h3>
 <p><font size="5"> if(expr.1){ <br>   expr.2 <br> }else if(expr.3){ <br>   expr.4 <br> }else{ <br>   expr.5 <br> } </font></p>
 <pre class="r"><code>a &lt;-2.13
-if( a &gt; 10 ){
-  cat(&quot;a &gt; 10 \n&quot;)
+if( a &gt;= 10 ){
+  cat(&quot;a &gt;= 10 \n&quot;)
   b=1
-}else if(a &gt; 5){ 
-  cat(&quot;5 &lt; a &lt; 10 \n&quot;)
+}else if(a &gt;= 5){ 
+  cat(&quot;5 &lt;= a &lt; 10 \n&quot;)
   b=2
-}else if(a &gt; 2.5){ 
-  cat(&quot;2.5 &lt; a &lt; 5 \n&quot;)
+}else if(a &gt;= 2.5){ 
+  cat(&quot;2.5 &lt;= a &lt; 5 \n&quot;)
   b=3
-}else if(a &gt; 1.25){ 
-  cat(&quot;1.25 &lt; a &lt; 2.5 \n&quot;)
-  b=4
 }else{ 
-  cat(&quot;a &lt; 1.25&quot;)
-  b=5
+  cat(&quot;a &lt; 2.5&quot;)
+  b=4
 }</code></pre>
-<pre><code>## 1.25 &lt; a &lt; 2.5</code></pre>
+<pre><code>## a &lt; 2.5</code></pre>
 <pre class="r"><code>b</code></pre>
 <pre><code>## [1] 4</code></pre>
 <p><br></p>
+<pre class="r"><code>a &lt;-2.13
+
+if(a&gt;=10){cat(&quot;a &gt;= 10 \n&quot;)}
+if(a&gt;=5 &amp; a&lt;10){cat(&quot;5 &lt;= a &lt; 10 \n&quot;)}
+if(a&gt;=2.5 &amp; a&lt;5){cat(&quot;2.5 &lt;= a &lt; 5 \n&quot;)}
+if(a &lt; 2.5){cat(&quot;a &lt; 2.5 \n&quot;)}</code></pre>
+<pre><code>## a &lt; 2.5</code></pre>
+<p><br></p>
+<p><font size="5" color="red">*note if()else{} 只能判斷一個元素</font></p>
 <pre class="r"><code>x &lt;- c(-1,2,3)
 if((x-2) &lt; 0){ 
   cat(&quot;小於2 \n&quot;)
@@ -427,19 +433,38 @@ x &lt;- rnorm(10000,60,5)</code></pre>
 </div>
 <div id="function" class="section level2">
 <h2>1.3 function</h2>
-<p><font size="5"> function.name &lt;- function(input.var1, input.var2){ … }</p>
-<p></font></p>
-<pre class="r"><code>add &lt;- function(x,y){
+<pre class="r"><code>x &lt;- 1
+2*x+1</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>x &lt;- 2
+2*x+1</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p><font size="5"> function.name &lt;- function(input.var1, input.var2){ <br>   … <br> }<br></p>
+<p></font> <br> <span class="math display">\[f(x)=2x+1\]</span></p>
+<pre class="r"><code>my.function &lt;- function(x){
+  2*x+1
+}
+
+my.function(1)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>my.function(2)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p><br></p>
+<p><span class="math display">\[f(x,y)=x-y\]</span></p>
+<pre class="r"><code>minus  &lt;- function(x,y){
+  x-y;
+}
+minus(1,2)</code></pre>
+<pre><code>## [1] -1</code></pre>
+<pre class="r"><code>minus(y=2,x=1)</code></pre>
+<pre><code>## [1] -1</code></pre>
+<pre class="r"><code>minus &lt;- function(x,y=2){
   x+y;
 }
-add(1,2)</code></pre>
+
+minus(1)</code></pre>
 <pre><code>## [1] 3</code></pre>
-<pre class="r"><code>add &lt;- function(x,y=2){
-  x+y;
-}
-add(1)</code></pre>
-<pre><code>## [1] 3</code></pre>
-<pre class="r"><code>add(1,3)</code></pre>
+<pre class="r"><code>minus(1,3)</code></pre>
 <pre><code>## [1] 4</code></pre>
 <p><br></p>
 <p><font size="5"> example</p>
@@ -758,9 +783,7 @@ str(dt.iris)</code></pre>
 ## 149:          6.2         3.4          5.4         2.3 virginica
 ## 150:          5.9         3.0          5.1         1.8 virginica</code></pre>
 <p>DT[i,j,by]</p>
-<p>i : where | order by <br> j : select | update <br> by : group by</p>
-<div id="where-i-and-order" class="section level3">
-<h3>where i and order</h3>
+<p>i : where | order by <br> j : select | update <br> by : group by <br> ### where i and order</p>
 <pre class="r"><code>iris[1:2,]</code></pre>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -793,7 +816,7 @@ str(dt.iris)</code></pre>
 ##  8:          4.6         3.2          1.4         0.2  setosa
 ##  9:          4.6         3.1          1.5         0.2  setosa
 ## 10:          4.7         3.2          1.3         0.2  setosa</code></pre>
-</div>
+<p><br></p>
 <div id="select-j-and-update" class="section level3">
 <h3>select j and update</h3>
 <div id="select-column-by-colnames" class="section level4">
@@ -835,9 +858,7 @@ iris[,c(&quot;Sepal.Length&quot;,&quot;Sepal.Width&quot;)][1:10,]</code></pre>
 ##  8:          5.0         3.4
 ##  9:          4.4         2.9
 ## 10:          4.9         3.1</code></pre>
-</div>
-<div id="select-column-return-vector" class="section level4">
-<h4>select column return vector</h4>
+<p><br> #### select column return vector</p>
 <pre class="r"><code>#select column return vector
 dt.iris[,Sepal.Length]</code></pre>
 <pre><code>##   [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
@@ -862,6 +883,7 @@ dt.iris[,Sepal.Length]</code></pre>
 ## 148:          6.5
 ## 149:          6.2
 ## 150:          5.9</code></pre>
+<p><br></p>
 </div>
 <div id="change-column-names" class="section level4">
 <h4>change column names</h4>
@@ -893,6 +915,7 @@ two.dt</code></pre>
 ##  8: 5.0 3.4
 ##  9: 4.4 2.9
 ## 10: 4.9 3.1</code></pre>
+<p><br></p>
 </div>
 <div id="compute-in-j" class="section level4">
 <h4>compute in j</h4>
@@ -902,6 +925,7 @@ sum(ans.df)</code></pre>
 <pre><code>## [1] 1335.1</code></pre>
 <pre class="r"><code>dt.iris[,(ans=sum(Sepal.Length+Sepal.Width))]</code></pre>
 <pre><code>## [1] 1335.1</code></pre>
+<p><br></p>
 <pre class="r"><code>#use function
 mean(iris$Sepal.Length)</code></pre>
 <pre><code>## [1] 5.843333</code></pre>
@@ -910,6 +934,7 @@ mean(iris$Sepal.Length)</code></pre>
 <pre class="r"><code>dt.iris[,.(mean=mean(Sepal.Length),sd=sd(Sepal.Length))]</code></pre>
 <pre><code>##        mean        sd
 ## 1: 5.843333 0.8280661</code></pre>
+<p><br></p>
 </div>
 <div id="subset-in-i-and-do-in-j" class="section level4">
 <h4>subset in i and do in j</h4>
@@ -925,6 +950,7 @@ sum(iris$Sepal.Length &gt; 5 &amp; iris$Sepal.Width &lt; 3)</code></pre>
 <pre><code>## [1] 51</code></pre>
 <pre class="r"><code>dt.iris[Sepal.Length &gt; 5 &amp; Sepal.Width &lt; 3,.N]</code></pre>
 <pre><code>## [1] 51</code></pre>
+<p><br></p>
 </div>
 <div id="select-colnames-by-names-in-j-like-in-data.frame" class="section level4">
 <h4>select colnames by names in j (like in data.frame)</h4>
@@ -965,6 +991,7 @@ iris[1:5,j]</code></pre>
 ## 3:          4.7          1.3  setosa
 ## 4:          4.6          1.5  setosa
 ## 5:          5.0          1.4  setosa</code></pre>
+<p><br></p>
 </div>
 <div id="update-and-add-column" class="section level4">
 <h4>update and add column</h4>
@@ -991,6 +1018,7 @@ dt.iris[Sepal.Length &gt; 5,Sepal.Width]</code></pre>
 ##  [69] 280 330 270 300 290 300 300 290 250 360 320 270 300 250 280 320 300
 ##  [86] 380 260 220 320 280 280 270 330 320 280 300 280 300 280 380 280 280
 ## [103] 260 300 340 310 300 310 310 310 270 320 330 300 250 300 340 300</code></pre>
+<p><br></p>
 </div>
 </div>
 <div id="grouping-using-by" class="section level3">
@@ -1010,6 +1038,7 @@ df.result</code></pre>
 ## 1:     setosa 5.006 0.3524897
 ## 2: versicolor 5.936 0.5161711
 ## 3:  virginica 6.588 0.6358796</code></pre>
+<p><br></p>
 </div>
 <div id="multiple-variable" class="section level4">
 <h4>Multiple variable</h4>
@@ -1052,6 +1081,7 @@ dt.iris[1:5]</code></pre>
 ## 4: versicolor       &lt;=5   2.233333
 ## 5:  virginica        &gt;5 298.367347
 ## 6:  virginica       &lt;=5   2.500000</code></pre>
+<p><br></p>
 </div>
 </div>
 <div id="5" class="section level3">
@@ -1229,7 +1259,7 @@ dt.Milk[,.(mean.protein=mean(protein)),by=.(Diet,time.group)][order(-mean.protei
 data.table : <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html" class="uri">https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html</a>
 </li>
 <li>
-台北醫學大學 生物統計研究中心 <a href="http://biostat.tmu.edu.tw/" class="uri">http://biostat.tmu.edu.tw/</a>
+臺北醫學大學 生物統計研究中心 <a href="http://biostat.tmu.edu.tw/" class="uri">http://biostat.tmu.edu.tw/</a>
 </li>
 </ul>
 </div>
