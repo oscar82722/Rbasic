@@ -610,8 +610,314 @@ my.median(x1,na.rm=T)</code></pre>
 <pre><code>## [1] 4</code></pre>
 </div>
 </div>
+<div id="looping-for-and-while" class="section level2">
+<h2>1.4 looping (for and while)</h2>
+<div id="for" class="section level3">
+<h3>for</h3>
+<p><font size="5"> for(name in expr.1){ <br> expr.2 <br> } </font></p>
+<pre class="r"><code>for(i in 1:5){
+  cat(&quot;loop: &quot;,i,&quot;\n&quot;)
+}</code></pre>
+<pre><code>## loop:  1 
+## loop:  2 
+## loop:  3 
+## loop:  4 
+## loop:  5</code></pre>
+<pre class="r"><code>for(i in c(1,3,5)){
+  cat(&quot;loop: &quot;,i,&quot;\n&quot;)
+}</code></pre>
+<pre><code>## loop:  1 
+## loop:  3 
+## loop:  5</code></pre>
+<pre class="r"><code>y &lt;- round(rnorm(10,0,1),2)
+y</code></pre>
+<pre><code>##  [1]  2.37 -0.17  0.93 -0.57  0.23  1.13  1.38 -0.23 -1.60 -0.30</code></pre>
+<pre class="r"><code>z &lt;- y
+for(i in 1:length(y)){
+  if(y[i] &lt;0){
+    y[i] &lt;- 0
+  }
+}
+y</code></pre>
+<pre><code>##  [1] 2.37 0.00 0.93 0.00 0.23 1.13 1.38 0.00 0.00 0.00</code></pre>
+<pre class="r"><code>i</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>z[z &lt;0] &lt;- 0
+z</code></pre>
+<pre><code>##  [1] 2.37 0.00 0.93 0.00 0.23 1.13 1.38 0.00 0.00 0.00</code></pre>
+</div>
+<div id="for-" class="section level3">
+<h3>for 雙迴圈</h3>
+<pre class="r"><code>m &lt;- 3
+n &lt;- 4
+for(i in 1:m){
+  for(j in 1:n){
+    cat(&quot;loop: (&quot;,i,&quot;,&quot;,j,&quot;)\n&quot;)
+  }
+}</code></pre>
+<pre><code>## loop: ( 1 , 1 )
+## loop: ( 1 , 2 )
+## loop: ( 1 , 3 )
+## loop: ( 1 , 4 )
+## loop: ( 2 , 1 )
+## loop: ( 2 , 2 )
+## loop: ( 2 , 3 )
+## loop: ( 2 , 4 )
+## loop: ( 3 , 1 )
+## loop: ( 3 , 2 )
+## loop: ( 3 , 3 )
+## loop: ( 3 , 4 )</code></pre>
+<pre class="r"><code>a &lt;- matrix(0,2,4)
+for(i in 1:2){
+  for(j in 1:4){
+    a[i,j] &lt;- i+j
+  }
+}
+a</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    2    3    4    5
+## [2,]    3    4    5    6</code></pre>
+</div>
+<div id="next-and-break" class="section level3">
+<h3>next and break</h3>
+<div id="next" class="section level4">
+<h4>next</h4>
+<pre class="r"><code>m &lt;- 3
+n &lt;- 4
+for(i in 1:m){
+  for(j in 1:n){
+    if(i==2){
+      cat(&quot;before  next:&quot;,  i,&quot;,&quot;,j,  &quot;\n&quot;)
+      next
+      cat(&quot;after  next:&quot;,  i,&quot;,&quot;,j,  &quot;\n&quot;)
+    }else{
+     cat(&quot;loop: (&quot;,i,&quot;,&quot;,j,&quot;)\n&quot;) 
+    }
+  }
+}</code></pre>
+<pre><code>## loop: ( 1 , 1 )
+## loop: ( 1 , 2 )
+## loop: ( 1 , 3 )
+## loop: ( 1 , 4 )
+## before  next: 2 , 1 
+## before  next: 2 , 2 
+## before  next: 2 , 3 
+## before  next: 2 , 4 
+## loop: ( 3 , 1 )
+## loop: ( 3 , 2 )
+## loop: ( 3 , 3 )
+## loop: ( 3 , 4 )</code></pre>
+</div>
+<div id="break" class="section level4">
+<h4>break</h4>
+<pre class="r"><code>m &lt;- 3
+n &lt;- 4
+for(i in 1:m){
+  for(j in 1:n){
+    if(i==2){
+      cat(&quot;before  break:&quot;,  i,&quot;,&quot;,j,  &quot;\n&quot;)
+      break
+    }else{
+     cat(&quot;loop: (&quot;,i,&quot;,&quot;,j,&quot;)\n&quot;) 
+    }
+  }
+}</code></pre>
+<pre><code>## loop: ( 1 , 1 )
+## loop: ( 1 , 2 )
+## loop: ( 1 , 3 )
+## loop: ( 1 , 4 )
+## before  break: 2 , 1 
+## loop: ( 3 , 1 )
+## loop: ( 3 , 2 )
+## loop: ( 3 , 3 )
+## loop: ( 3 , 4 )</code></pre>
+</div>
+</div>
+<div id="4" class="section level3">
+<h3>練習(4)</h3>
+<p><font> 利用for 迴圈輸出99乘法表，只要開頭2,4,6</p>
+<pre><code>## 2 * 1 = 2 
+## 2 * 2 = 4 
+## 2 * 3 = 6 
+## 2 * 4 = 8 
+## 2 * 5 = 10 
+## 2 * 6 = 12 
+## 2 * 7 = 14 
+## 2 * 8 = 16 
+## 2 * 9 = 18 
+## --------
+## 4 * 1 = 4 
+## 4 * 2 = 8 
+## 4 * 3 = 12 
+## 4 * 4 = 16 
+## 4 * 5 = 20 
+## 4 * 6 = 24 
+## 4 * 7 = 28 
+## 4 * 8 = 32 
+## 4 * 9 = 36 
+## --------
+## 6 * 1 = 6 
+## 6 * 2 = 12 
+## 6 * 3 = 18 
+## 6 * 4 = 24 
+## 6 * 5 = 30 
+## 6 * 6 = 36 
+## 6 * 7 = 42 
+## 6 * 8 = 48 
+## 6 * 9 = 54 
+## --------</code></pre>
+<p></font></p>
+</div>
+<div id="while" class="section level3">
+<h3>while</h3>
+<p><font> while(true){ <br> … <br> } </font></p>
+<pre class="r"><code>a &lt;- 0
+while(a &lt; 5){
+   cat(&quot;loop: &quot;,a,&quot;\n&quot;) 
+   a &lt;- a+1
+}</code></pre>
+<pre><code>## loop:  0 
+## loop:  1 
+## loop:  2 
+## loop:  3 
+## loop:  4</code></pre>
+</div>
+<div id="5" class="section level3">
+<h3>練習(5)</h3>
+<p><font> 1. 分別用for 及 while 計算 n! </font></p>
+<pre class="r"><code>factorial.for(5)</code></pre>
+<pre><code>## [1] 120</code></pre>
+<pre class="r"><code>factorial.for(0)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>factorial.while(5)</code></pre>
+<pre><code>## [1] 120</code></pre>
+<pre class="r"><code>factorial.while(0)</code></pre>
+<pre><code>## [1] 1</code></pre>
+</div>
+</div>
+<div id="data-frame" class="section level2">
+<h2>data frame</h2>
+<pre class="r"><code>str(iris)</code></pre>
+<pre><code>## 'data.frame':    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<pre class="r"><code>#select by row
+iris[1:5,]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa</code></pre>
+<pre class="r"><code>#select by row and colunm
+iris[1:5,1:2]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width
+## 1          5.1         3.5
+## 2          4.9         3.0
+## 3          4.7         3.2
+## 4          4.6         3.1
+## 5          5.0         3.6</code></pre>
+<pre class="r"><code>iris$Sepal.Length[1:5]</code></pre>
+<pre><code>## [1] 5.1 4.9 4.7 4.6 5.0</code></pre>
+<pre class="r"><code>iris$Sepal.Width[1:5]</code></pre>
+<pre><code>## [1] 3.5 3.0 3.2 3.1 3.6</code></pre>
+<pre class="r"><code>iris[1:5,c(&quot;Sepal.Length&quot;,&quot;Sepal.Width&quot;)]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width
+## 1          5.1         3.5
+## 2          4.9         3.0
+## 3          4.7         3.2
+## 4          4.6         3.1
+## 5          5.0         3.6</code></pre>
+<pre class="r"><code>#select by 條件
+iris[iris$Sepal.Width&lt;2.5,]</code></pre>
+<pre><code>##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 42           4.5         2.3          1.3         0.3     setosa
+## 54           5.5         2.3          4.0         1.3 versicolor
+## 58           4.9         2.4          3.3         1.0 versicolor
+## 61           5.0         2.0          3.5         1.0 versicolor
+## 63           6.0         2.2          4.0         1.0 versicolor
+## 69           6.2         2.2          4.5         1.5 versicolor
+## 81           5.5         2.4          3.8         1.1 versicolor
+## 82           5.5         2.4          3.7         1.0 versicolor
+## 88           6.3         2.3          4.4         1.3 versicolor
+## 94           5.0         2.3          3.3         1.0 versicolor
+## 120          6.0         2.2          5.0         1.5  virginica</code></pre>
+<pre class="r"><code>iris[iris$Species==&quot;setosa&quot;,][1:5,]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa</code></pre>
+<pre class="r"><code>###setosa\versicolor\virginica sepal.Length mean
+unique(iris$Species)</code></pre>
+<pre><code>## [1] setosa     versicolor virginica 
+## Levels: setosa versicolor virginica</code></pre>
+<pre class="r"><code>mean(iris[iris$Species==&quot;setosa&quot;,]$Sepal.Length)</code></pre>
+<pre><code>## [1] 5.006</code></pre>
+<pre class="r"><code>mean(iris[iris$Species==&quot;versicolor&quot;,]$Sepal.Length)</code></pre>
+<pre><code>## [1] 5.936</code></pre>
+<pre class="r"><code>mean(iris[iris$Species==&quot;virginica&quot;,]$Sepal.Length)</code></pre>
+<pre><code>## [1] 6.588</code></pre>
+<pre class="r"><code>#sepal.length &gt;5.8 
+sepal.length.group &lt;- NULL
+for(i in 1:length(iris$Sepal.Length)){
+  if(iris$Sepal.Length[i] &gt;5.8){
+    sepal.length.group &lt;- c(sepal.length.group,&quot;a&quot;)
+  }else{
+    sepal.length.group &lt;- c(sepal.length.group,&quot;b&quot;)
+  }
+}
+
+sepal.length.group[1:5]</code></pre>
+<pre><code>## [1] &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>sepal.length.group.1 &lt;- ifelse(iris$Sepal.Length &gt;5.8,&quot;a&quot;,&quot;b&quot;)
+sepal.length.group.1[1:5]</code></pre>
+<pre><code>## [1] &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>my.iris &lt;- data.frame(iris,sepal.length.group)
+my.iris[1:5,]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+##   sepal.length.group
+## 1                  b
+## 2                  b
+## 3                  b
+## 4                  b
+## 5                  b</code></pre>
+<div id="6" class="section level3">
+<h3>練習(6)</h3>
+<p><font class="font1"> 1. 呼叫 nlme package</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>看前5筆資料</p></li>
+<li><p>計算protein &gt; 3.4 的筆數</p></li>
+<li><p>看有幾種 Diet</p></li>
+<li><p>計算不同Diet的protein 的 mean</p></li>
+</ol>
+<p>結果: </font></p>
+<pre><code>## Grouped Data: protein ~ Time | Cow
+##   protein Time Cow   Diet
+## 1    3.63    1 B01 barley
+## 2    3.57    2 B01 barley
+## 3    3.47    3 B01 barley
+## 4    3.65    4 B01 barley
+## 5    3.89    5 B01 barley</code></pre>
+<pre><code>## protein &gt; 3.4 的筆數 :  671</code></pre>
+<pre><code>## [1] barley        barley+lupins lupins       
+## Levels: barley barley+lupins lupins</code></pre>
+<pre><code>## barley: 3.531929</code></pre>
+<pre><code>## barley+lupins: 3.429695</code></pre>
+<pre><code>## lupins: 3.312384</code></pre>
+</div>
+</div>
 <div id="implicit-looping" class="section level2">
-<h2>1.4 隱含迴圈(Implicit looping)</h2>
+<h2>1.5 隱含迴圈(Implicit looping)</h2>
 <div id="apply" class="section level3">
 <h3>apply</h3>
 <p><font class="font1">apply(data,1 or 2,fun.)</font></p>
@@ -619,22 +925,22 @@ my.median(x1,na.rm=T)</code></pre>
 data.score &lt;- data.frame(x1,x2,x3)
 data.score</code></pre>
 <pre><code>##    x1 x2 x3
-## 1  62 70 80
-## 2  60 70 82
-## 3  61 71 82
-## 4  59 69 80
-## 5  60 68 81
-## 6  61 71 79
-## 7  61 70 80
-## 8  60 70 80
-## 9  58 69 79
-## 10 60 69 80</code></pre>
+## 1  60 70 80
+## 2  60 72 79
+## 3  61 72 79
+## 4  59 70 83
+## 5  58 71 80
+## 6  61 69 80
+## 7  60 70 79
+## 8  60 70 82
+## 9  59 69 80
+## 10 59 70 80</code></pre>
 <pre class="r"><code>apply(data.score,1,mean)# 1表示 row</code></pre>
-<pre><code>##  [1] 70.66667 70.66667 71.33333 69.33333 69.66667 70.33333 70.33333
-##  [8] 70.00000 68.66667 69.66667</code></pre>
+<pre><code>##  [1] 70.00000 70.33333 70.66667 70.66667 69.66667 70.00000 69.66667
+##  [8] 70.66667 69.33333 69.66667</code></pre>
 <pre class="r"><code>apply(data.score,2,mean)# 2表示 column</code></pre>
 <pre><code>##   x1   x2   x3 
-## 60.2 69.7 80.3</code></pre>
+## 59.7 70.3 80.2</code></pre>
 </div>
 <div id="tapply" class="section level3">
 <h3>tapply</h3>
@@ -661,61 +967,53 @@ score &lt;- rnorm(30,75,5)
 data1 &lt;- data.frame(class,gender,score)
 data1</code></pre>
 <pre><code>##    class gender    score
-## 1      a      f 76.16446
-## 2      a      f 69.40560
-## 3      a      f 67.64910
-## 4      a      f 90.17592
-## 5      a      f 72.61730
-## 6      a      m 77.25657
-## 7      a      m 72.41295
-## 8      a      m 82.74713
-## 9      a      m 73.12013
-## 10     a      m 77.32209
-## 11     a      f 78.74639
-## 12     a      f 72.31701
-## 13     a      f 71.83058
-## 14     a      f 80.32699
-## 15     a      f 81.61354
-## 16     b      f 76.09150
-## 17     b      f 68.71208
-## 18     b      f 79.12632
-## 19     b      f 71.26410
-## 20     b      f 74.17970
-## 21     b      m 81.81683
-## 22     b      m 66.78067
-## 23     b      m 78.72668
-## 24     b      m 76.46522
-## 25     b      m 76.35094
-## 26     b      m 76.31119
-## 27     b      m 73.48835
-## 28     b      m 75.76240
-## 29     b      m 73.31186
-## 30     b      m 76.23978</code></pre>
+## 1      a      f 78.74639
+## 2      a      f 72.31701
+## 3      a      f 71.83058
+## 4      a      f 80.32699
+## 5      a      f 81.61354
+## 6      a      m 76.09150
+## 7      a      m 68.71208
+## 8      a      m 79.12632
+## 9      a      m 71.26410
+## 10     a      m 74.17970
+## 11     a      f 81.81683
+## 12     a      f 66.78067
+## 13     a      f 78.72668
+## 14     a      f 76.46522
+## 15     a      f 76.35094
+## 16     b      f 76.31119
+## 17     b      f 73.48835
+## 18     b      f 75.76240
+## 19     b      f 73.31186
+## 20     b      f 76.23978
+## 21     b      m 71.91469
+## 22     b      m 76.57168
+## 23     b      m 82.37182
+## 24     b      m 70.28480
+## 25     b      m 72.62809
+## 26     b      m 72.18361
+## 27     b      m 80.84466
+## 28     b      m 73.33428
+## 29     b      m 79.92648
+## 30     b      m 74.72601</code></pre>
 <pre class="r"><code>aggregate(score~class+gender,data=data1,FUN= mean)</code></pre>
 <pre><code>##   class gender    score
-## 1     a      f 76.08469
-## 2     b      f 73.87474
-## 3     a      m 76.57177
-## 4     b      m 75.52539</code></pre>
+## 1     a      f 76.49749
+## 2     b      f 75.02272
+## 3     a      m 73.87474
+## 4     b      m 75.47861</code></pre>
 </div>
-<div id="4" class="section level3">
-<h3>練習(4)</h3>
-<p><font size="5"> 1. 輸入以下code，利用 summary() 及 str()，初步了解資料。</p>
+<div id="7" class="section level3">
+<h3>練習(7)</h3>
+<p><font size="5"> 1. 使用 Milk 檔案做下列事情</p>
 <ol start="2" style="list-style-type: decimal">
-<li><p>根據不同 Time 算出平均 protein.</p></li>
+<li><p>根據不同 Diet 算出平均 protein.</p></li>
 <li><p>當時間 1-10 時 令time.group 為“前期” ，11-19 為“後期”</p></li>
 <li><p>把 Milk 檔與 time.group 合併成一個data.frame</p></li>
-<li><p>計算不同的Diet 及 time.group 下，平均的 protein </font></p></li>
+<li><p>計算不同的Diet 及 time.group 下，平均的 protein</p></li>
+<li><p>計算不同 Diet 有幾隻不一樣的牛。(先撰寫FUNCTION，幫助計算不同隻牛(length,unique)，再利用tapply 做計算) </font></p></li>
 </ol>
-<pre class="r"><code>library(nlme)
-Milk[1:5,]</code></pre>
-<pre><code>## Grouped Data: protein ~ Time | Cow
-##   protein Time Cow   Diet
-## 1    3.63    1 B01 barley
-## 2    3.57    2 B01 barley
-## 3    3.47    3 B01 barley
-## 4    3.65    4 B01 barley
-## 5    3.89    5 B01 barley</code></pre>
 <p><font size="5"> 結果: </font></p>
 <pre><code>##        1        2        3        4        5        6        7        8 
 ## 3.834051 3.532692 3.403165 3.314557 3.351538 3.352278 3.329870 3.402338 
@@ -730,6 +1028,8 @@ Milk[1:5,]</code></pre>
 ## 4        barley       後期 3.538258
 ## 5 barley+lupins       後期 3.420842
 ## 6        lupins       後期 3.258617</code></pre>
+<pre><code>##        barley barley+lupins        lupins 
+##            25            27            27</code></pre>
 </div>
 </div>
 </div>
@@ -1084,8 +1384,8 @@ dt.iris[1:5]</code></pre>
 <p><br></p>
 </div>
 </div>
-<div id="5" class="section level3">
-<h3>練習(5)</h3>
+<div id="8" class="section level3">
+<h3>練習(8)</h3>
 <p><font size="5"> 1. 一樣利用 Milk 檔案，先轉成 data.table，用data.table 方法完成下列問題</p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>根據不同 Time 算出平均 protein</p></li>
@@ -1238,12 +1538,72 @@ my.median &lt;- function(x,na.rm=F){
 </div>
 <div id="4-1" class="section level2">
 <h2>練習(4)</h2>
+<pre class="r"><code>for(i in c(2,4,6)){
+  for(j in 1:9){
+    cat(i,&quot;*&quot;,j,&quot;=&quot;,i*j,&quot;\n&quot;)
+    if(j==9){
+      cat(&quot;--------\n&quot;)
+    }
+  }
+}</code></pre>
+<p><br></p>
+</div>
+<div id="5-1" class="section level2">
+<h2>練習(5)</h2>
+<pre class="r"><code>factorial.for &lt;-  function(n){
+  f &lt;- 1
+  if(n &lt; 2){
+    return(1)
+  }else{
+    for(i in 2:n){
+      f &lt;- f*i
+    }
+    return(f)
+  }
+  
+}
+
+factorial.while &lt;- function(n){
+  f &lt;- 1
+  t &lt;- n
+  while(t &gt;1){
+    f &lt;- f*t
+    t &lt;- t-1
+  }
+  return(f)
+}</code></pre>
+<p><br></p>
+</div>
+<div id="6-1" class="section level2">
+<h2>練習(6)</h2>
+<pre class="r"><code>library(nlme)
+Milk[1:5,]
+cat(&quot;protein &gt; 3.4 的筆數 : &quot;,sum(Milk$protein &gt; 3.4))
+unique(Milk$Diet)
+
+cat(&quot;barley:&quot; ,mean(Milk[Milk$Diet==&quot;barley&quot;,&quot;protein&quot;]),&quot;\n&quot;)
+cat(&quot;barley+lupins:&quot;,mean(Milk[Milk$Diet==&quot;barley+lupins&quot;,&quot;protein&quot;]),&quot;\n&quot;)
+cat(&quot;lupins:&quot;,mean(Milk[Milk$Diet==&quot;lupins&quot;,&quot;protein&quot;]),&quot;\n&quot;)</code></pre>
+<p><br></p>
+</div>
+<div id="7-1" class="section level2">
+<h2>練習(7)</h2>
 <pre class="r"><code>tapply(Milk$protein,Milk$Time,mean)
 
 time.group &lt;- ifelse(Milk$Time &lt; 11 , &quot;前期&quot;,&quot;後期&quot;)
 Milk.new &lt;- data.frame(Milk,time.group)
-aggregate(protein~Diet+time.group,data=Milk.new,mean)</code></pre>
-<p><br> ##練習(5)</p>
+aggregate(protein~Diet+time.group,data=Milk.new,mean)
+
+
+my.count.cow &lt;- function(x){
+  length(unique(x))
+}
+
+tapply(Milk$Cow,Milk$Diet,my.count.cow)</code></pre>
+<p><br></p>
+</div>
+<div id="8-1" class="section level2">
+<h2>練習(8)</h2>
 <pre class="r"><code>dt.Milk[,mean(protein),by=Time]
 dt.Milk[,time.group:=ifelse(Time &lt; 11 , &quot;前期&quot;,&quot;後期&quot;)]
 dt.Milk[,.(mean.protein=mean(protein)),by=.(Diet,time.group)][order(-mean.protein)]</code></pre>
